@@ -52,6 +52,49 @@ angular.module('starter').controller('MapController',
           }
         };
 
+        // Add the tour and the POI's to the map
+        leafletData.getMap().then(function(map) {
+          var myIcon = function(number){
+            console.log(number);
+            if(number){
+              return L.icon({
+                iconUrl: 'images/number_' + number + '.png',
+                iconAnchor: [16, 37]
+              });
+            } else {
+              return L.icon({
+                iconUrl: 'images/marker-icon-2x.png',
+                popupAnchor: [0, -28]
+              });
+            }
+          };
+
+          var myFeatureGroup = L.geoJson(august_town_tour,{
+            pointToLayer: function (feature, latlng) {
+              console.log(feature.properties);
+              return L.marker(latlng, {icon: myIcon(feature.properties["ref:atown_tour"])});
+            },
+            style: function(feature) {
+              switch (feature.geometry.type) {
+                case 'LineString':
+                return {
+                  color:'#ffdd00',
+                  opacity: 0.7,
+                  weight: 8,
+                  clickable: false
+                };
+                //{color: "#ff0000"};
+                case 'Point':   return {color: "#0000ff"};
+                default:
+                  return {color: "#0000ff"};
+              }
+            }
+          });
+          myFeatureGroup.addTo(map);
+          map.fitBounds(myFeatureGroup.getBounds());
+
+
+        });
         $scope.goTo(0);
 
       });
@@ -93,8 +136,8 @@ angular.module('starter').controller('MapController',
           var myFeature = L.geoJson(location);
           //myFeature.addTo(map);
           map.fitBounds(myFeature.getBounds());
-          var flickr = new L.Flickr('00035f36d8cb075b1030b13b34908854',{maxLoad: 50, maxTotal: 250});
-          map.addLayer(flickr);
+          //var flickr = new L.Flickr('00035f36d8cb075b1030b13b34908854',{maxLoad: 50, maxTotal: 250});
+          //map.addLayer(flickr);
         });
       };
 

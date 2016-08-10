@@ -3,27 +3,24 @@
           <ion-nav-bar class="bar-assertive">
               <ion-nav-back-button class="no-text">
               </ion-nav-back-button>
-              <ion-nav-buttons side="left">
+              <!--<ion-nav-buttons side="left">
                   <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                   </button>
-              </ion-nav-buttons>
+              </ion-nav-buttons>-->
               <ion-nav-buttons side="right">
                   <button class="button button-icon button-clear ion-android-more-vertical" id="menu-popover" ng-click="popover.show($event)">
                   </button>
               </ion-nav-buttons>
           </ion-nav-bar>
-          <!--<button id="fab" class="button button-positive button-fab button-fab-bottom-right">
-              <i class="icon ion-social-twitter"></i>
-          </button>-->
           <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-
+<ion-pane>
     <header class="bar bar-header bar-stable">
       <h1 class="title">August Town Churches ({{locations.length}})</h1>
     </header>
-
+<p>Test if this text will properly align</p>
     <ion-content class="has-header">
 
       <ion-list>
@@ -35,5 +32,6 @@
       </ion-list>
 
     </ion-content>
+    <ion-pane>
   </ion-side-menu>
 </ion-side-menus>

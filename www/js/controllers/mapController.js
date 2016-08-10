@@ -71,8 +71,28 @@ angular.module('starter').controller('MapController',
 
           var myFeatureGroup = L.geoJson(august_town_tour,{
             pointToLayer: function (feature, latlng) {
-              console.log(feature.properties);
-              return L.marker(latlng, {icon: myIcon(feature.properties["ref:atown_tour"])});
+              var pointMarker = L.marker(latlng, {icon: myIcon(feature.properties["ref:atown_tour"])});
+              pointMarker.on('click', function(e){
+                console.log(e.target.feature.properties);
+                $ionicPopup.show({
+                  template: '<p>Some text will show here in the future, maybe even a youtube video or an image. That is all up to requirements.</p><pre>' + JSON.stringify(e.target.feature.properties) + '</pre>',
+                  title: e.target.feature.properties.name,
+                  scope: $scope,
+                  cssClass: 'fullscreen',
+                  buttons: [
+                    {
+                      text: '<b>Close</b>',
+                      type: 'button',
+                      onTap: function(e) {
+                          //don't allow the user to close unless he enters wifi password
+                          //e.preventDefault();
+                          return '';
+                      }
+                    }
+                  ]
+                });
+              });
+              return pointMarker;
             },
             style: function(feature) {
               switch (feature.geometry.type) {
